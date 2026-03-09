@@ -1,0 +1,56 @@
+comando para crear proyecto en react con vite: npm create vite@latest nombre_proyecto
+
+Primeros pasos del proyecto:
+ 
+  * Diseño de las interfaces de ususario tanto mobile como desktop
+  Herramientas y dependencias:
+	* react-router-dom para configurar la navegación del sistema
+	* Bootstrap para estilizar el sistema
+	* Ilustraciones para logos svg
+
+ * Se utilizó Gemini ai para refinar logos
+
+
+Para el backend:
+
+Se utilizará node js como entorno de ejecución de js para desarrollo local
+Se utilizará express js como framework backend
+Se utilizará Typescript para tipar objetos o entidades del código
+Se utilizará postgers sql como base de datos
+
+INSTALACION DE DEPENDENCIAS:
+express, cors
+typeorm como orm para modelos
+reflect-metadata
+pg (postgres)
+
+dotenv para variables de entorno
+
+Dependencias de desarrollo:
+
+npm install -D typescript ts-node-dev @types/node @types/express
+typescript para tipar los objetos
+ts-node-dev para iniciar el servidor con reload automatico 
+tipos de node js y express
+
+Iniciar typescript:
+npx tsc --init
+
+
+
+
+Preguntas evaluadoras:
+======================
+
+¿Qué pasa si dos pacientes intentan reservar el mismo horario al mismo tiempo?
+
+¿Cómo se recalculan los horarios disponibles?
+
+¿Dónde está la lógica de negocio?
+
+¿Por qué no guardás los horarios disponibles en la base?
+
+
+
+
+
