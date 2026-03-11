@@ -89,44 +89,43 @@ const AgendaProfesional = () => {
 
         <div className="list-group">
 
-          {turnos.map((turno) => (
+        {turnos.map((turno) => (
 
-            <div key={turno.id} className="list-group-item">
+  <div key={turno.id} className="list-group-item">
 
-              <h6>
-                {turno.paciente.usuario.nombreCompleto}
-              </h6>
+    <h6 className="fw-bold mb-1">
+      {turno.paciente.usuario.nombreCompleto}
+    </h6>
 
-              <p className="mb-1">
-                📅 {turno.fecha}
-              </p>
+    <p className="mb-1">📅 {turno.fecha}</p>
+    <p className="mb-2">🕒 {turno.hora}</p>
 
-              <p className="mb-1">
-                🕒 {turno.hora}
-              </p>
+    <div className="d-flex align-items-center gap-2">
 
-              <span className={`badge ${
-                turno.estado === "ATENDIDO"
-                  ? "bg-success"
-                  : turno.estado === "CANCELADO"
-                  ? "bg-danger"
-                  : "bg-primary"
-              }`}>
-                {turno.estado}
-              </span>
+      <span className={`badge ${
+        turno.estado === "ATENDIDO"
+          ? "bg-success"
+          : turno.estado === "CANCELADO"
+          ? "bg-danger"
+          : "bg-primary"
+      }`}>
+        {turno.estado}
+      </span>
 
-              {turno.estado === "RESERVADO" && (
-                <button
-                  className="btn btn-success btn-sm ms-3"
-                  onClick={() => marcarAtendido(turno.id)}
-                >
-                  Marcar como atendido
-                </button>
-              )}
+      {turno.estado === "confirmado" && (
+        <button
+          className="btn btn-outline-success btn-sm"
+          onClick={() => marcarAtendido(turno.id)}
+        >
+          Atender
+        </button>
+      )}
 
-            </div>
+    </div>
 
-          ))}
+  </div>
+
+))}
 
         </div>
 

@@ -16,7 +16,7 @@ const NavbarProfesional = () => {
       <div className="container">
 
         {/* Logo + nombre */}
-        <Link className="navbar-brand d-flex align-items-center" to="/agenda">
+        <Link className="navbar-brand d-flex align-items-center" to="/agendaProfesional">
           <img
             src={logoCentroMedico}
             alt="Logo Centro Médico"
