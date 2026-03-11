@@ -12,5 +12,8 @@ const controller = new TurnoController();
 router.get("/disponibles", authenticate,authorize(['PACIENTE']) , controller.getHorariosDisponibles);
 router.post("/reservar",authenticate,authorize(["PACIENTE"]),controller.reservarTurno);
 router.get("/misTurnos", authenticate,authorize(['PACIENTE']) , controller.getMisTurnos);
+router.patch("/:id/cancelar",authenticate,authorize(['PACIENTE']),controller.cancelarTurno);
+router.get("/agenda",authenticate,authorize(['PROFESIONAL']),controller.getAgendaProfesional);
+router.patch("/:id/atendido", authenticate,authorize(['PROFESIONAL']),controller.marcarComoAtendido);
 
 export default router;

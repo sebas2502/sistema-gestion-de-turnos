@@ -88,12 +88,40 @@ export class TurnoService {
   // -------------------------------------
   // Agenda del profesional
   // -------------------------------------
-  async getAgendaProfesional(
-    profesionalId: number,
-    fecha: string
-  ): Promise<Turno[]> {
-    return this.turnoRepo.findAgendaProfesional(profesionalId, fecha);
+async getAgendaProfesional(usuarioId: number, fecha: string) {
+  console.log("Usuario: ",usuarioId);
+
+  const profesional =
+    await this.profesionalRepo.findByUsuarioId(usuarioId);
+console.log("profesional:", profesional);
+  if (!profesional) {
+    throw new Error("Profesional no encontrado");
   }
+
+  const agenda =
+    await this.turnoRepo.findAgendaProfesional(
+      profesional.id,
+      fecha
+    );
+
+  return agenda;
+
+}
+
+async marcarTurnoAtendido(turnoId: number): Promise<Turno> {
+
+  const turno = await this.turnoRepo.marcarComoAtendido(turnoId);
+
+  if (!turno) {
+    throw new Error("Turno no encontrado");
+  }
+
+  return turno;
+}
+
+
+
+
 
   // -------------------------------------
   // UTILIDADES
@@ -143,7 +171,7 @@ export class TurnoService {
   }
 
 
-  async getMisTurnos(usuarioId: number) {
+  async getMisTurnos(usuarioId: number) : Promise<Turno[]> {
    
   const paciente = await this.pacienteRepo.findByUsuarioId(usuarioId);  
    if (!paciente) {
@@ -153,6 +181,23 @@ export class TurnoService {
 
   return turnos;
 
+}
+
+async cancelarTurno(turnoId:number , usuarioId:number){
+  const paciente = await this.pacienteRepo.findByUsuarioId(usuarioId);
+  const turno = await this.turnoRepo.findById(turnoId);
+
+  if(!turno){
+    throw new Error("No se encontró el turno")
+  }
+
+    if (turno.paciente?.id !== paciente?.id) {
+      throw new Error("No autorizado");
+  }
+
+  turno.estado = EstadoTurno.CANCELADO;
+
+  return this.turnoRepo.save(turno);
 }
 
 }

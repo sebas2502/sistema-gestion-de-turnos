@@ -35,24 +35,35 @@ export class TurnoRepository {
 
   }
 
-  // Agenda completa del profesional
-  async findAgendaProfesional(
-    profesionalId: number,
-    fecha: string
-  ): Promise<Turno[]> {
-
-    return this.repo.find({
-      where: {
-        profesional: { id: profesionalId },
-        fecha
-      },
-      relations: ["paciente"],
-      order: {
-        hora: "ASC"
-      }
+  async findById(id: number) {
+    return this.repo.findOne({
+      where: { id },
+      relations: ["paciente"]
     });
-
   }
+
+  // Agenda completa del profesional
+ async findAgendaProfesional(
+  profesionalId: number,
+  fecha: string
+): Promise<Turno[]> {
+
+  return this.repo.find({
+    where: {
+      profesional: { id: profesionalId },
+      fecha
+    },
+    relations: [
+      "paciente",
+      "paciente.usuario",
+      "profesional"
+    ],
+    order: {
+      hora: "ASC"
+    }
+  });
+
+}
 
   // Verificar si el profesional ya tiene turno en esa fecha y hora
   async findPorProfesionalFechaYHora(
@@ -71,6 +82,19 @@ export class TurnoRepository {
     });
 
   }
+
+  async marcarComoAtendido(turnoId: number): Promise<Turno | null> {
+
+  const turno = await this.repo.findOne({
+    where: { id: turnoId }
+  });
+
+  if (!turno) return null;
+
+  turno.estado = EstadoTurno.ATENDIDO;
+
+  return await this.repo.save(turno);
+}
 
   create(data: Partial<Turno>): Turno {
     return this.repo.create(data);

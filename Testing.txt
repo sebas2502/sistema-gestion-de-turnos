@@ -1,0 +1,284 @@
+Plan de Pruebas – Sistema de Gestión de Turnos Médicos
+1. Pruebas de Autenticación
+
+Login paciente
+
+Probar:
+
+Login con credenciales correctas
+
+Usuario inexistente
+
+Contraseña incorrecta
+
+Resultado esperado:
+
+Login correcto → redirige al panel del paciente
+
+Error → muestra mensaje de credenciales incorrectas
+
+Login profesional
+
+Probar:
+
+Login con credenciales válidas de profesional
+
+Resultado esperado:
+
+Redirige a la agenda del profesional
+
+Logout
+
+Probar:
+
+Cerrar sesión desde paciente
+
+Cerrar sesión desde profesional
+
+Resultado esperado:
+
+Se elimina la sesión
+
+Redirige a la pantalla de login
+
+2. Pruebas desde la Perspectiva del Paciente
+Solicitar turno
+
+Flujo a probar:
+
+Seleccionar especialidad
+
+Seleccionar profesional
+
+Seleccionar fecha
+
+Seleccionar horario
+
+Confirmar turno
+
+Verificar:
+
+El turno se guarda en la base de datos
+
+El estado inicial del turno es RESERVADO
+
+Ver mis turnos
+
+El paciente debe poder ver:
+
+Profesional
+
+Fecha
+
+Hora
+
+Estado del turno
+
+Verificar:
+
+El turno solicitado aparece correctamente
+
+Los datos coinciden con la base de datos
+
+Cancelar turno
+
+Flujo:
+
+El paciente selecciona cancelar turno
+
+Confirmar cancelación
+
+Resultado esperado:
+
+El estado del turno cambia a CANCELADO
+
+3. Pruebas desde la Perspectiva del Profesional
+Ver agenda profesional
+
+Flujo:
+
+Seleccionar una fecha
+
+Mostrar turnos del día
+
+Cada turno debe mostrar:
+
+Paciente
+
+Fecha
+
+Hora
+
+Estado
+
+Verificar:
+
+Los turnos coinciden con los guardados en la base de datos
+
+Marcar turno como atendido
+
+Flujo:
+
+Click en Marcar como atendido
+
+Confirmar acción
+
+Resultado esperado:
+
+El estado cambia a ATENDIDO
+
+La agenda se actualiza automáticamente
+
+4. Pruebas de Disponibilidad Profesional
+Crear disponibilidad
+
+Ejemplo de prueba:
+
+Día: Lunes
+Hora desde: 08:00
+Hora hasta: 12:00
+Duración del turno: 30 minutos
+
+Verificar:
+
+Se guarda correctamente en la base de datos
+
+Aparece en la lista de disponibilidades
+
+Eliminar disponibilidad
+
+Flujo:
+
+Seleccionar disponibilidad
+
+Click en eliminar
+
+Confirmar
+
+Resultado esperado:
+
+La disponibilidad desaparece de la lista
+
+Se elimina de la base de datos
+
+5. Pruebas de Seguridad
+
+Probar accesos no permitidos:
+
+Paciente intentando acceder a:
+
+/agenda-profesional
+
+Resultado esperado:
+
+El acceso debe ser bloqueado
+
+Intentar acceder a endpoints sin autenticación:
+
+Resultado esperado:
+
+El servidor devuelve error de autenticación
+
+6. Pruebas desde Dispositivo Móvil
+
+Abrir el sistema desde el celular usando la IP del servidor.
+
+Ejemplo:
+
+http://192.168.x.x:5173
+
+Probar:
+
+Login
+
+Solicitar turno
+
+Ver agenda
+
+Verificar:
+
+La interfaz es usable desde el celular
+
+7. Verificación de Base de Datos
+
+Consultar la tabla de turnos y verificar:
+
+Estados correctos
+
+Relaciones correctas
+
+Estados posibles:
+
+RESERVADO
+CANCELADO
+ATENDIDO
+
+Verificar que cada turno tenga:
+
+paciente_id
+
+profesional_id
+
+fecha
+
+hora
+
+8. Casos Límite (Edge Cases)
+
+Probar situaciones especiales:
+
+Intentar reservar:
+
+mismo profesional
+
+misma fecha
+
+misma hora
+
+Resultado esperado:
+
+El sistema debe impedir doble turno.
+
+Intentar marcar como atendido:
+
+un turno cancelado
+
+Resultado esperado:
+
+El sistema debe impedirlo o manejar el error.
+
+9. Prueba de Flujo Completo
+
+Simular uso real del sistema.
+
+Escenario:
+
+Paciente A reserva turno
+
+Paciente B reserva turno
+
+Profesional consulta su agenda
+
+Profesional marca un turno como atendido
+
+Paciente cancela su turno
+
+Verificar:
+
+Los estados finales en la base de datos sean correctos.
+
+✅ Si todas estas pruebas funcionan correctamente, el sistema cumple con:
+
+Gestión de turnos
+
+Autenticación de usuarios
+
+Roles paciente y profesional
+
+Agenda profesional
+
+Disponibilidad horaria
+
+Cancelación de turnos
+
+Registro de atención

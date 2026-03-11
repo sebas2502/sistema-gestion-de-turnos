@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import logoCentroMedico from "../public/imgs/logo_centro_medico.png";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../services/authServices";
 
 const NavbarProfesional = () => {
+  
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
       <div className="container">
@@ -35,19 +44,21 @@ const NavbarProfesional = () => {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 
             <li className="nav-item">
-              <Link className="nav-link" to="/agenda">
+              <Link className="nav-link" to="/agendaProfesional">
                 Agenda
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/disponibilidad">
+              <Link className="nav-link" to="/disponibilidadProfesional">
                 Disponibilidad
               </Link>
             </li>
 
             <li className="nav-item">
-              <button className="btn btn-outline-danger ms-lg-3">
+              <button className="btn btn-outline-danger ms-lg-3"
+               onClick={handleLogout} 
+              >
                 Cerrar sesión
               </button>
             </li>

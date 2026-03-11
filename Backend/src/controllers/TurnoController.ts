@@ -36,6 +36,30 @@ export class TurnoController {
   };
 
 
+  cancelarTurno = async (req:Request, res:Response) => {
+
+  try {
+
+    const turnoId = Number(req.params.id);
+    const usuarioId = Number(req.user?.id);
+
+    const turno = await this.turnoService.cancelarTurno(
+      turnoId,
+      usuarioId
+    );
+
+    res.json(turno);
+
+  } catch (error:any) {
+
+    res.status(400).json({
+      message: error.message
+    });
+
+  }
+
+};
+
   getMisTurnos = async (req: Request, res: Response) => {
 
   try {
@@ -104,16 +128,56 @@ res.status(200).json({info:"test info"})
   }
 }
  
-getAgendaProfesional = async (req: Request, res: Response) => {
-  const { profesionalId, fecha } = req.query;
+getAgendaProfesional = async (req:Request, res:Response) => {
 
-  const agenda = await this.turnoService.getAgendaProfesional(
-    Number(profesionalId),
-    String(fecha)
-  );
+  try {
 
-  res.json(agenda);
+    const usuarioId = Number(req.user?.id);
+    
+    const  fecha  = req.query.fecha as string;
+
+    if (!fecha) {
+      return res.status(400).json({
+        message: "La fecha es requerida"
+      });
+    }
+
+    const agenda = await this.turnoService.getAgendaProfesional(
+      usuarioId,
+      fecha
+    );
+
+    res.json(agenda);
+
+  } catch (error:any) {
+  
+    res.status(500).json({
+      message: error.message
+    });
+
+  }
+
 };
 
+
+ marcarComoAtendido = async(req: Request, res: Response) => {
+
+  try {
+
+    const turnoId = Number(req.params.id);
+
+    const turno = await this.turnoService.marcarTurnoAtendido(turnoId);
+
+    res.json(turno);
+
+  } catch (error: any) {
+
+    res.status(400).json({
+      message: error.message
+    });
+
+  }
+
+}
  
 }

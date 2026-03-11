@@ -20,6 +20,19 @@ export class ProfesionalRepository {
     });
   }
 
+async findByUsuarioId(usuarioId: number): Promise<Profesional | null> {
+
+  return this.repo.findOne({
+    where: {
+      usuario: {
+        id: usuarioId
+      }
+    },
+    relations: ["usuario"]
+  });
+
+}
+
   findByEspecialidad(especialidadId: number) : Promise<Profesional[] | null> {
     return this.repo.find({
       where: {

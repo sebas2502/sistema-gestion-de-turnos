@@ -3,11 +3,11 @@ import Home from "../Pages/Home";
 import Login from "../Pages/auth/FormLogin";
 import Registro from "../Pages/auth/FormRegister";
 import TurnosPacientes from "../Pages/TurnosPacientes";
-import AgendaMedica from "../Pages/AgendaMedica";
-import Disponibilidad from "../Pages/Disponibilidad";
+import DisponibilidadProfesional from "../Pages/DisponibilidadProfesional";
 import Unauthorized from "../Pages/auth/Unauthorized"; // Página opcional
 import PrivateRoute from "../Components/PrivateRoute"; // Componente que protege rutas
 import MisTurnos from "../Pages/MisTurnos";
+import AgendaProfesional from "../Pages/AgendaProfesional";
 
 const AppRouter = () => {
   return (
@@ -21,13 +21,13 @@ const AppRouter = () => {
         {/* Rutas privadas para pacientes */}
         <Route element={<PrivateRoute allowedRoles={["paciente"]} />}>
            <Route path="/turnos" element={<TurnosPacientes />} />
-           <Route path="/misTurnos" element={<MisTurnos />} />
+           <Route path="/MisTurnos" element={<MisTurnos />} />
         </Route>
 
         {/* Rutas privadas para profesionales */}
         <Route element={<PrivateRoute allowedRoles={["profesional"]} />}>
-          <Route path="/agenda" element={<AgendaMedica />} />
-          <Route path="/disponibilidad" element={<Disponibilidad />} />
+          <Route path="/agendaProfesional" element={<AgendaProfesional />} />
+          <Route path="/disponibilidadProfesional" element={<DisponibilidadProfesional />} />
         </Route>
 
         {/* Ruta de acceso denegado */}

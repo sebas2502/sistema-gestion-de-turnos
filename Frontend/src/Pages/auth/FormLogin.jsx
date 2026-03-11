@@ -23,9 +23,9 @@ const FormLogin = () => {
     
       // Redirigir según rol
       if (rol === "PACIENTE") {
-        navigate("/turnos");
+        navigate("/MisTurnos");
       } else if (rol === "PROFESIONAL") {
-        navigate("/agenda");
+        navigate("/agendaProfesional");
       } else if (rol === "ADMIN") {
         navigate("/dashboard-super"); 
       } else {

@@ -13,6 +13,7 @@ import { Paciente } from "./Paciente";
 export enum EstadoTurno {
   CONFIRMADO = "confirmado",
   CANCELADO = "cancelado",
+  ATENDIDO  = "atendido"
  }
 
 

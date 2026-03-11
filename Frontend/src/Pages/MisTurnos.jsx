@@ -50,6 +50,36 @@ const MisTurnos = () => {
     return "bg-secondary";
   };
 
+  const cancelarTurno = async (id) => {
+
+   const confirmar = window.confirm(
+    "¿Estás seguro de que querés cancelar este turno?"
+  );
+
+  if(!confirmar) return;
+  
+  try {
+
+    await api.patch(
+      `/turnos/${id}/cancelar`
+    );
+
+    setTurnos(prev =>
+      prev.map(turno =>
+        turno.id === id
+          ? { ...turno, estado: "CANCELADO" }
+          : turno
+      )
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+};
+
   if (loading) {
     return (
       <div className="container py-4">
@@ -130,11 +160,13 @@ const MisTurnos = () => {
                     {turno.estado}
                   </span>
 
-                  {turno.estado === "CONFIRMADO" && (
+                  {turno.estado === "confirmado" && (
 
                     <div className="mt-auto">
 
-                      <button className="btn btn-danger btn-sm w-100">
+                      <button className="btn btn-danger btn-sm w-100"
+                        onClick={()=>cancelarTurno(turno.id)}
+                      >
                         Cancelar turno
                       </button>
 
